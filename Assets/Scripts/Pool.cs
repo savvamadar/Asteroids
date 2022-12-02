@@ -33,18 +33,23 @@ public class Pool : MonoBehaviour
         {
             pool_dict[key] = new PoolEntry();
         }
-        if(pool_dict[key].inactive.Count <= 0)
+
+        if (pool_dict[key].inactive.Count <= 0)
         {
             Transform t = Instantiate(prefab, prefab.position, prefab.rotation);
             t.gameObject.SetActive(false);
+            DontDestroyOnLoad(t.gameObject);
             pool_dict[key].active.Remove(t.GetComponent<PoolItem>());
             pool_dict[key].inactive.Add(t.GetComponent<PoolItem>());
         }
 
-        foreach(var x in pool_dict[key].inactive)
+
+
+        foreach (var x in pool_dict[key].inactive)
         {
             return x;
         }
+
 
         return null;
     }
@@ -60,4 +65,5 @@ public class Pool : MonoBehaviour
         pool_dict[pi.key].active.Remove(pi);
         pool_dict[pi.key].inactive.Add(pi);
     }
+
 }
